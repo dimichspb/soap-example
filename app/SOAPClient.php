@@ -2,14 +2,17 @@
 
 namespace App;
 
-class soap {
+class SOAPClient extends SOAPService{
 
     private $client;
+    public $config;
 
-    public function __construct($wsdlFilePath)
+    public function __construct($serviceName)
     {
+        $this->serviceName = $serviceName;
+        $this->loadConfig();
         try {
-            $this->client = new \SoapClient($wsdlFilePath);
+            $this->client = new \SoapClient($this->wsdlFilePath);
         } catch (\Exception $e) {
             echo "Error creating SOAP client ", $e->getMessage();
         }
